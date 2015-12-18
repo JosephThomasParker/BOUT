@@ -168,6 +168,7 @@ const Field3D FieldFactory::create3D(const string &value, Options *opt, Mesh *m,
 
   switch(loc)  {
   case CELL_XLOW: {
+#pragma omp parallel for
       for(int x=0;x<m->ngx;x++) {
         BoutReal xpos = 0.5*(m->GlobalX(x-1) + m->GlobalX(x));
         for(int y=0;y<m->ngy;y++)
@@ -180,6 +181,7 @@ const Field3D FieldFactory::create3D(const string &value, Options *opt, Mesh *m,
       break;
     }
   case CELL_YLOW: {
+#pragma omp parallel for
       for(int x=0;x<m->ngx;x++)
         for(int y=0;y<m->ngy;y++) {
           BoutReal ypos = TWOPI*0.5*(m->GlobalY(y-1) + m->GlobalY(y));
@@ -192,6 +194,7 @@ const Field3D FieldFactory::create3D(const string &value, Options *opt, Mesh *m,
       break;
     }
   case CELL_ZLOW: {
+#pragma omp parallel for
       for(int x=0;x<m->ngx;x++)
         for(int y=0;y<m->ngy;y++)
           for(int z=0;z<m->ngz;z++)
@@ -202,6 +205,7 @@ const Field3D FieldFactory::create3D(const string &value, Options *opt, Mesh *m,
       break;
     }
   default: {// CELL_CENTRE
+#pragma omp parallel for
     for(int x=0;x<m->ngx;x++)
       for(int y=0;y<m->ngy;y++)
         for(int z=0;z<m->ngz;z++)

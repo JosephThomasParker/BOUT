@@ -152,6 +152,7 @@ int initial_profile(const char *name, Field3D &var)
     FIND_OPT(varOpts, allOpts, "ys_wd", ys_wd, 0.2);
     FIND_OPT(varOpts, allOpts, "zs_wd", zs_wd, 0.2);
 
+#pragma omp parallel for
     for (jx=0; jx < mesh->ngx; jx++) {
       BoutReal xcoord = mesh->GlobalX(jx);
     
